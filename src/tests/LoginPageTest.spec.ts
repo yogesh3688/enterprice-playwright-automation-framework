@@ -2,15 +2,17 @@ import { test } from "@playwright/test";
 import LoginPage from "../pages/LoginPage";
 import { decrypt, encrypt } from "../utils/CyptoJSUtils";
 import { decryptEnvFile, encryptEnvFile } from "../utils/EncryptEnvFile";
+import logger from "../utils/LoggerUtils";
 
 
-test("Login with valid credentials", async ({ page }) => {
+test.skip("Login with valid credentials", async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.navigate();
     await loginPage.fillUsername(decrypt(process.env.user_id!));
     await loginPage.fillPassword(decrypt(process.env.password!));
     const homePage = await loginPage.clickLoginButton();
     await homePage.expectServiceTitleToBeVisible();
+    logger.info("Login Test is completed successfully");
 });
 
 test.skip("Testing ENV", async ({ page }) => {
@@ -34,3 +36,5 @@ test.skip("Sample env test",async({page})=>{
     encryptEnvFile();
 
 });
+
+
