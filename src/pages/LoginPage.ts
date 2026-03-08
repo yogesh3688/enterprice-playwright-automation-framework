@@ -1,0 +1,43 @@
+import {Page} from "@playwright/test";
+import HomePage from "./homePage";
+
+export default class LoginPage {
+    // private readonly usernameInputSelector = "input[placeholder='Enter your username...']";
+    // private readonly passwordInputSelector = "input[placeholder='Enter your password...']";
+    // private readonly loginButtonSelector = "//button/span[text()='Login']";
+
+    private readonly usernameInputSelector = "#username";
+    private readonly passwordInputSelector = "#password";
+    private readonly loginButtonSelector = "#Login";
+
+    constructor(private page: Page) {
+    }
+
+    async navigate() {
+        await this.page.goto("/");
+    }
+
+    async fillUsername(username: string) {
+        console.log("Filling username: ", username);
+        await this.page.locator(this.usernameInputSelector).first().fill(username);
+    }
+
+    async fillPassword(password: string) {
+        console.log("Filling password: ", password);
+        await this.page.locator(this.passwordInputSelector).first().fill(password);
+    }
+
+    async clickLoginButton() {
+        await this.page.locator(this.loginButtonSelector)
+        .first()
+        .click()
+        .catch((error) => {
+            console.error("Error clicking login button:", error);
+            throw error;
+        });
+
+        const homePage = new HomePage(this.page);
+        return homePage;
+    }
+
+}
