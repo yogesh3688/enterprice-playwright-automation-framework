@@ -18,7 +18,7 @@ test.skip("Login with valid credentials", async ({ page }) => {
 
 test.skip("Testing ENV", async ({ page }) => {
     console.log(process.env.NODE_ENV);
-    console.log();
+    console.log("Test");
     console.log(process.env.password);
 
 });
