@@ -1,21 +1,21 @@
-import {faker} from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 
 import path from 'path';
 import * as fs from 'fs';
 import * as createCSVWriter from 'csv-writer';
 
 interface UserData {
-    name : string;
-    email : string;
-    password : string;
-    userid : string;
-    age : number;
-    gender : string;
-    address : string;
+    name: string;
+    email: string;
+    password: string;
+    userid: string;
+    age: number;
+    gender: string;
+    address: string;
 }
 
 // function to generate fake user data
-const generateFakeUser = (): UserData =>{
+const generateFakeUser = (): UserData => {
     return {
         name: faker.person.fullName(),
         email: faker.internet.email(),
@@ -29,7 +29,7 @@ const generateFakeUser = (): UserData =>{
 
 // function to generate an array fake user data
 export const generateFakeUsers = (numRecords: number): UserData[] => {
-    const testData: UserData[] = faker.helpers.multiple(generateFakeUser, { count:numRecords });
+    const testData: UserData[] = faker.helpers.multiple(generateFakeUser, { count: numRecords });
     return testData;
 }
 
@@ -37,16 +37,18 @@ const currentDir = __dirname;
 
 //Go to pne level up from current directory
 // const dataDir = path.join(currentDir, "..", "data");
-const scrDir = path.resolve(currentDir,"..");
+const scrDir = path.resolve(currentDir, "..");
 
 // change the config folder
 const testdataDir = path.resolve(scrDir, "data");
 
 // function to export fake user data to json file
 export const exportFakeUsersToJson = (data: UserData[], fileName: string) => {
-    fs.writeFileSync('${testdataDir}\\${fileName}', JSON.stringify(data, null, 2));
-    console.log(`Fake user data exported to ${testdataDir}\\${fileName} successfully.`);
-}
+    const filePath = path.join(testdataDir, fileName);
+    console.log("Exporting fake user data to JSON file: ", filePath);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    console.log(`Fake user data exported to ${filePath} successfully.`);
+};
 
 // function to export fake user data to csv file
 export const exportFakeUsersToCsv = (data: UserData[], fileName: string) => {
@@ -64,10 +66,7 @@ export const exportFakeUsersToCsv = (data: UserData[], fileName: string) => {
     });
 
     csvWriter.writeRecords(data).then(() => {
-        console.log(`Fake user data exported to ${testdataDir}\\${fileName} successfully.`);
-    }).catch((error: Error) => {
-        console.error('Error exporting fake user data to CSV:', error);
+        console.log(`Data exported to CSV file: ${testdataDir}\\${fileName}`);
     });
-
-    
+};
 

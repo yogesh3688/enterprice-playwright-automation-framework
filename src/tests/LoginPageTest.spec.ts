@@ -3,7 +3,7 @@ import LoginPage from "../pages/LoginPage";
 import { decrypt, encrypt } from "../utils/CyptoJSUtils";
 import { decryptEnvFile, encryptEnvFile } from "../utils/EncryptEnvFile";
 import logger from "../utils/LoggerUtils";
-import { generateFakeUser } from "../utils/faker";
+import { generateFakeUsers,exportFakeUsersToJson, exportFakeUsersToCsv } from "../utils/FakerDataUtils";
 
 
 test.skip("Login with valid credentials", async ({ page }) => {
@@ -39,6 +39,12 @@ test.skip("Sample env test",async({page})=>{
 });
 
 test("Testing faker",async()=>{
-    console.log("Fake User: ", generateFakeUser());
-});
+    // console.log("Fake User: ", generateFakeUser());
+    const testData = generateFakeUsers(20);
 
+    // Export Data to JSON file
+    exportFakeUsersToJson(testData, "fake_users.json");
+
+    //Export Data to CSV file
+    exportFakeUsersToCsv(testData, "fake_users.csv");
+});
