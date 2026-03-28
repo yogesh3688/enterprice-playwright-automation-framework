@@ -40,7 +40,8 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: 'https://orgfarm-64efd58fb4-dev-ed.develop.my.salesforce.com',
+    // baseURL: 'https://orgfarm-64efd58fb4-dev-ed.develop.my.salesforce.com',
+    baseURL : 'https://fake-json-api.mock.beeceptor.com',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',

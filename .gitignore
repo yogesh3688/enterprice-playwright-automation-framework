@@ -21,3 +21,5 @@ src/videos/
 src/trace/
 src/report/
 src/logging/
+src/data/
+src/config/auth.json
